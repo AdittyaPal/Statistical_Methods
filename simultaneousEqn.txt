@@ -1,0 +1,37 @@
+//program to solve simultaneous linear equations using the Gauss Elimination method
+#include <cmath>
+#include <iostream>
+using namespace std;
+int main()
+{
+    int s=0;
+    cout<<"Enter the number of equations.\n";//number of variables inputted assuming unique solutions are available
+    cin>>s;
+    float a[s][s],b[s],x[s];//arrays to store the matices in the form AX=B
+    for(int i=0;i<s;i++)
+    {
+        cout<<"Enter the coefficients of the "<<(i+1)<<" equation.\n";
+        for(int j=0;j<s;j++)
+        cin>>a[i][j];//coefficients inputted
+        cout<<"Enter the constant on the right hand side.\n";
+        cin>>b[i];//constant inputted
+    }
+    for(int k=0;k<s-1;k++)//loop to eliminate the kth variable from k+1 and all succeeding equations
+    {
+        for(int i=k+1;i<s;i++)//loop to eliminate the kth variable from each of the succeeding equations
+        {
+            for(int j=k+1;j<s;j++)//loop to update each coefficient and constant of each equation
+            a[i][j]-=(a[i][k]/a[k][k])*a[k][j];
+            b[i]-=(a[i][k]/a[k][k])*b[k];
+        }
+    }
+    for(int i=s-1;i>=0;i--)//loop to solve each equation
+    {
+        for(int j=i+1;j<s;j++)//loop to subtract all the presolved variables
+        b[i]-=(a[i][j]*x[j]);
+        x[i]=b[i]/a[i][i];
+    }
+    for(int i=0;i<s;i++)//solutions printed
+    cout<<"x"<<i<<" = "<<x[i]<<endl;
+    return 0;
+}

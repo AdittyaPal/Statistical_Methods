@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+#include <cmath>
+int main()
+{
+    int n=0;
+    cout<<"Enter the number of data points.\n";
+    cin>>n;
+    float x[n],y[n];//array to store the coordinates of the points
+    cout<<"Enter the data points as x and y coordiantes\n";
+    for(int i=0;i<n;i++)
+    {
+        cout<<(i+1)<<" point:\n";
+        cin>>x[i];
+        cin>>y[i];
+    }
+    float sum_x=0.0f;
+    float sum_y=0.0f;
+    float sumSquare_x=0.0f;
+    float sumSquare_y=0.0f;
+    float sumCross_xy=0.0f;
+    for(int i=0;i<n;i++)
+    {
+        sum_x+=x[i];
+        sum_y+=y[i];
+        sumSquare_x+=x[i]*x[i];
+        sumSquare_y+=y[i]*y[i];
+        sumCross_xy+=x[i]*y[i];
+    }
+    float xMean=sum_x/n;
+    float yMean=sum_y/n;
+    double b=(sumCross_xy-(sum_x*sum_y/n))/(sumSquare_x-(sum_x*sum_x/n));//regression coefficient calculated
+    double a=yMean-b*xMean;
+    cout<<"The best fit line is y="<<a<<" + "<<b<<" x\n";
+    double xVar=sumSquare_x-(sum_x*sum_x/n);
+    double yVar=sumSquare_y-(sum_y*sum_y/n);
+    double r=b*xVar/yVar;//Karl Preason's coefficient of correlation calculated
+    cout<<"The coefficient of coorelation is "<<r<<endl;
+    return 0;
+}  
