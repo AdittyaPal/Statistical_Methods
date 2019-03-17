@@ -1,6 +1,9 @@
 public class Integration
 {
-  public static final double a=0., b=3.;
+  public static final double const1=1.191042759e-16;
+  public static final double const2=1.4387752e-2;
+  public static final double temp=5000.;
+  public static final double a=400.0e-9, b=600.0e-9;
   public static final int n=1000;
   public static void main(String args[])
   {
@@ -16,7 +19,8 @@ public class Integration
   }
   public static double f(double y)
   {
-    return y*y;
+    double value=(const1/Math.pow(y,5)*Math.pow(Math.exp(const2/(temp*y))-1,-1));
+    return value;
   }
   public static double wTrap(int i,double h)
   {
@@ -26,3 +30,4 @@ public class Integration
       return h;
   }
 }
+//output= 2331251.8347852184
